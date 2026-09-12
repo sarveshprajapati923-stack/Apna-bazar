@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Apna Bazaar | Daily Needs</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="header">
+  <div class="brand">APNA <span>BAZAAR</span></div>
+  <input id="search" class="search" placeholder="Search products..." />
+  <button id="cartBtn" class="cart">Cart (<span id="cartCount">0</span>)</button>
+</header>
+
+<section class="hero">
+  <div>
+    <p class="eyebrow">YOUR LOCAL SHOP, ONLINE</p>
+    <h1>Everything you need,<br>in one bazaar.</h1>
+    <p>Fresh groceries, household essentials and everyday products at simple prices.</p>
+    <a href="#products" class="primary">Shop Now</a>
+  </div>
+</section>
+
+<section class="categories">
+  <button class="cat active" data-cat="All">All</button>
+  <button class="cat" data-cat="Grocery">Grocery</button>
+  <button class="cat" data-cat="Beverages">Beverages</button>
+  <button class="cat" data-cat="Household">Household</button>
+  <button class="cat" data-cat="Personal Care">Personal Care</button>
+</section>
+
+<main id="products" class="products"></main>
+
+<div id="cartPanel" class="drawer">
+  <div class="drawerHead"><h2>Your Cart</h2><button id="closeCart">×</button></div>
+  <div id="cartItems"></div>
+  <div class="total">Total: ₹<span id="total">0</span></div>
+  <button id="checkout" class="primary full">Place Order</button>
+</div>
+
+<div id="modal" class="modal">
+  <div class="modalBox">
+    <button id="closeModal" class="close">×</button>
+    <h2>Checkout</h2>
+    <form id="orderForm">
+      <input name="name" required placeholder="Your name">
+      <input name="phone" required placeholder="Mobile number">
+      <textarea name="address" required placeholder="Delivery address"></textarea>
+      <select name="payment"><option>Cash on Delivery</option><option>UPI</option></select>
+      <button class="primary full">Confirm Order</button>
+    </form>
+    <p id="orderMessage"></p>
+  </div>
+</div>
+
+<footer>© 2026 Apna Bazaar · Your neighbourhood store</footer>
+<script src="app.js"></script>
+</body>
+</html>
