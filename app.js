@@ -1,4 +1,4 @@
-const API='http://localhost:5000/api';
+const API='/api';
 let products=[],cart=JSON.parse(localStorage.getItem('apna_cart')||'[]'),category='All';
 const $=s=>document.querySelector(s);
 
