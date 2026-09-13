@@ -1,10 +1,32 @@
 const products = [
-  {id:1,name:'Aashirvaad Atta 5 KG',price:295,category:'Grocery',emoji:'🌾'},
-  {id:2,name:'Tata Salt 1 KG',price:28,category:'Grocery',emoji:'🧂'},
-  {id:3,name:'Tea 500 GM',price:210,category:'Beverages',emoji:'☕'},
-  {id:4,name:'Dishwash Liquid',price:99,category:'Household',emoji:'🧴'},
-  {id:5,name:'Bath Soap Pack',price:120,category:'Personal Care',emoji:'🧼'},
-  {id:6,name:'Biscuits Family Pack',price:85,category:'Grocery',emoji:'🍪'}
+  {
+    id: 1,
+    name: 'Wheel Active 2 in 1 Detergent Powder - 1kg',
+    price: 75,
+    category: 'Household',
+    image: '/images/wheel.jpg'
+  },
+  {
+    id: 2,
+    name: 'Ghadi Detergent Powder - 3kg',
+    price: 210,
+    category: 'Household',
+    image: '/images/ghadi.jpg'
+  },
+  {
+    id: 3,
+    name: 'Tide Naturals Detergent Powder - 3kg',
+    price: 235,
+    category: 'Household',
+    image: '/images/tide.jpg'
+  },
+  {
+    id: 4,
+    name: 'Closeup Toothpaste - 300g Pack of 2',
+    price: 160,
+    category: 'Personal Care',
+    image: '/images/closeup.jpg'
+  }
 ];
 
 export default function handler(req, res) {
