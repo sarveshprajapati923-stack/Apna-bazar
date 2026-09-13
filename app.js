@@ -4,10 +4,11 @@ let products = [];
 let cart = JSON.parse(localStorage.getItem('apna_cart') || '[]');
 let category = 'All';
 
+// APNA BAZAAR SHOP OWNER WHATSAPP NUMBER
+const SHOP_WHATSAPP = '917800632404';
+
 const $ = s => document.querySelector(s);
 
-
-/* LOAD PRODUCTS */
 async function load() {
   try {
     const response = await fetch(API + '/products');
@@ -17,73 +18,60 @@ async function load() {
     }
 
     products = await response.json();
-
   } catch (e) {
     products = [];
   }
 
   render();
   updateCart();
+  renderCart();
 }
 
-
-/* SHOW PRODUCTS */
 function render() {
+  const searchBox = $('#search');
+  const q = searchBox ? searchBox.value.toLowerCase() : '';
 
-  const q = ($('#search')?.value || '').toLowerCase();
-
-  const filteredProducts = products.filter(p =>
-    (category === 'All' || p.category === category) &&
-    p.name.toLowerCase().includes(q)
-  );
-
-  $('#products').innerHTML = filteredProducts.length
-    ? filteredProducts.map(p => `
-
+  $('#products').innerHTML = products
+    .filter(p =>
+      (category === 'All' || p.category === category) &&
+      p.name.toLowerCase().includes(q)
+    )
+    .map(p => `
       <article class="card">
 
         <div class="pic">
           ${
             p.image
-              ? `<img src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.innerHTML='🛒';">`
+              ? `<img src="${p.image}" alt="${p.name}"
+                  onerror="this.style.display='none';this.parentElement.innerHTML='🛒';">`
               : '🛒'
           }
         </div>
 
         <h3>${p.name}</h3>
 
-        <div class="muted">
-          ${p.category}
-        </div>
+        <div class="muted">${p.category}</div>
 
-        <div class="price">
-          ₹${p.price}
-        </div>
+        <div class="price">₹${p.price}</div>
 
-        <button
-          class="add"
-          onclick="add(${p.id})">
+        <button class="add" onclick="add(${p.id})">
           Add to cart
         </button>
 
       </article>
-
-    `).join('')
-    : '<p>No products found.</p>';
+    `)
+    .join('');
 }
 
-
-/* ADD TO CART */
 function add(id) {
-
   const p = products.find(x => x.id === id);
 
   if (!p) return;
 
-  const x = cart.find(x => x.id === id);
+  const existing = cart.find(x => x.id === id);
 
-  if (x) {
-    x.qty++;
+  if (existing) {
+    existing.qty++;
   } else {
     cart.push({
       ...p,
@@ -93,229 +81,209 @@ function add(id) {
 
   save();
 
+  // Open cart after adding product
   $('#cartPanel').classList.add('open');
-
+  renderCart();
 }
 
-
-/* SAVE CART */
 function save() {
-
-  localStorage.setItem(
-    'apna_cart',
-    JSON.stringify(cart)
-  );
-
+  localStorage.setItem('apna_cart', JSON.stringify(cart));
   updateCart();
   renderCart();
-
 }
 
-
-/* UPDATE CART COUNT */
 function updateCart() {
-
   $('#cartCount').textContent =
-    cart.reduce((a, x) => a + x.qty, 0);
-
+    cart.reduce((total, item) => total + item.qty, 0);
 }
 
-
-/* SHOW CART */
 function renderCart() {
-
   $('#cartItems').innerHTML = cart.length
+    ? cart.map(item => `
+        <div class="cartRow">
 
-    ? cart.map(x => `
+          <div>
+            <strong>${item.name}</strong>
+            <br>
+            <small>₹${item.price} × ${item.qty}</small>
+          </div>
 
-      <div class="cartRow">
-
-        <div>
-
-          ${
-            x.image
-              ? `<img src="${x.image}"
-                   style="width:55px;height:55px;object-fit:contain;border-radius:8px;background:#f4f4f4;margin-bottom:5px;"
-                   onerror="this.style.display='none';">`
-              : ''
-          }
-
-          <strong>${x.name}</strong>
-
-          <br>
-
-          <small>
-            ₹${x.price} × ${x.qty}
-          </small>
+          <div>
+            <button onclick="change(${item.id}, -1)">−</button>
+            ${item.qty}
+            <button onclick="change(${item.id}, 1)">+</button>
+          </div>
 
         </div>
-
-        <div>
-
-          <button onclick="change(${x.id},-1)">
-            −
-          </button>
-
-          ${x.qty}
-
-          <button onclick="change(${x.id},1)">
-            +
-          </button>
-
-        </div>
-
-      </div>
-
-    `).join('')
-
+      `).join('')
     : '<p>Your cart is empty.</p>';
 
-
   $('#total').textContent =
-    cart.reduce(
-      (a, x) => a + x.price * x.qty,
-      0
-    );
-
+    cart.reduce((total, item) => total + item.price * item.qty, 0);
 }
 
+function change(id, amount) {
+  const item = cart.find(x => x.id === id);
 
-/* CHANGE QUANTITY */
-function change(id, n) {
+  if (!item) return;
 
-  const x = cart.find(x => x.id === id);
+  item.qty += amount;
 
-  if (!x) return;
-
-  x.qty += n;
-
-  if (x.qty <= 0) {
-    cart = cart.filter(y => y.id !== id);
+  if (item.qty <= 0) {
+    cart = cart.filter(x => x.id !== id);
   }
 
   save();
-
 }
 
-
-/* CATEGORY BUTTONS */
-document.querySelectorAll('.cat').forEach(b => {
-
-  b.onclick = () => {
+document.querySelectorAll('.cat').forEach(button => {
+  button.onclick = () => {
 
     document
       .querySelectorAll('.cat')
-      .forEach(x =>
-        x.classList.remove('active')
-      );
+      .forEach(x => x.classList.remove('active'));
 
-    b.classList.add('active');
+    button.classList.add('active');
 
-    category = b.dataset.cat;
+    category = button.dataset.cat;
 
     render();
-
   };
-
 });
 
-
-/* SEARCH */
 $('#search').oninput = render;
 
-
-/* OPEN CART */
 $('#cartBtn').onclick = () => {
-
   $('#cartPanel').classList.add('open');
-
   renderCart();
-
 };
 
-
-/* CLOSE CART */
 $('#closeCart').onclick = () => {
-
   $('#cartPanel').classList.remove('open');
-
 };
 
-
-/* CHECKOUT */
 $('#checkout').onclick = () => {
 
   if (!cart.length) {
-    return alert('Cart is empty');
+    alert('Cart is empty');
+    return;
   }
 
   $('#modal').classList.add('show');
-
 };
 
-
-/* CLOSE CHECKOUT */
 $('#closeModal').onclick = () => {
-
   $('#modal').classList.remove('show');
-
 };
 
 
-/* PLACE ORDER */
+// ===============================
+// WHATSAPP ORDER SYSTEM
+// ===============================
+
 $('#orderForm').onsubmit = async e => {
 
   e.preventDefault();
 
-  const f = new FormData(e.target);
+  if (!cart.length) {
+    alert('Cart is empty');
+    return;
+  }
 
-  const order = {
+  const form = new FormData(e.target);
 
-    customer: Object.fromEntries(f),
+  const customerName = form.get('name') || '';
+  const mobile = form.get('mobile') || '';
+  const address = form.get('address') || '';
+  const payment = form.get('payment') || 'Cash on Delivery';
 
-    items: cart,
+  const total = cart.reduce(
+    (sum, item) => sum + item.price * item.qty,
+    0
+  );
 
-    total: cart.reduce(
-      (a, x) => a + x.price * x.qty,
-      0
-    )
+  // Generate order ID
+  const orderId =
+    'APB-' + Date.now().toString().slice(-6);
 
-  };
+  // Create item list
+  const itemLines = cart.map((item, index) => {
+
+    const itemTotal = item.price * item.qty;
+
+    return `${index + 1}. ${item.name}
+Qty: ${item.qty} × ₹${item.price} = ₹${itemTotal}`;
+
+  }).join('\n\n');
 
 
+  // WhatsApp message
+  const message =
+`🛒 *NEW ORDER - APNA BAZAAR*
+
+🆔 Order ID: ${orderId}
+
+👤 Customer: ${customerName}
+📱 Mobile: ${mobile}
+
+📍 Delivery Address:
+${address}
+
+🛍️ *ORDER ITEMS*
+
+${itemLines}
+
+💰 *TOTAL: ₹${total}*
+
+💵 Payment: ${payment}
+
+Please confirm this order with the customer.`;
+
+  // Save order to API
   try {
 
     await fetch(API + '/orders', {
-
       method: 'POST',
-
       headers: {
         'Content-Type': 'application/json'
       },
-
-      body: JSON.stringify(order)
-
+      body: JSON.stringify({
+        orderId,
+        customer: {
+          name: customerName,
+          mobile,
+          address,
+          payment
+        },
+        items: cart,
+        total
+      })
     });
 
   } catch (error) {
-
-    console.log(error);
-
+    console.log('Order API error:', error);
   }
 
 
-  $('#orderMessage').textContent =
-    'Order received! We will contact you shortly.';
+  // WhatsApp URL
+  const whatsappURL =
+    `https://wa.me/${SHOP_WHATSAPP}?text=${encodeURIComponent(message)}`;
+
+  // Open WhatsApp
+  window.open(whatsappURL, '_blank');
 
 
+  // Customer confirmation
+  $('#orderMessage').innerHTML =
+    `<strong>Order ${orderId} created!</strong><br>
+     Please send the WhatsApp message to complete your order.`;
+
+  // Clear cart
   cart = [];
-
   save();
 
+  // Reset form
   e.target.reset();
-
 };
 
-
-/* START */
 load();
