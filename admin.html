@@ -1,1 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apna Bazar | Admin Login</title>
 
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f1f5f9;
+      padding: 20px;
+    }
+
+    .login-box {
+      width: 100%;
+      max-width: 380px;
+      padding: 30px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px #00000012;
+    }
+
+    h1 {
+      text-align: center;
+      color: #15803d;
+      margin-bottom: 8px;
+      font-size: 27px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #64748b;
+      margin-bottom: 28px;
+    }
+
+    label {
+      display: block;
+      margin: 16px 0 8px;
+      font-weight: bold;
+      color: #334155;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    input:focus {
+      outline: 2px solid #86efac;
+      border-color: #15803d;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 24px;
+      padding: 14px;
+      background: #15803d;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+
+    #message {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="login-box">
+    <h1>Apna Bazar</h1>
+    <p class="subtitle">Admin Panel Login</p>
+
+    <form id="loginForm">
+      <label for="email">Admin Email</label>
+      <input
+        type="email"
+        id="email"
+        placeholder="Enter admin email"
+        autocomplete="username"
+        required
+      >
+
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        placeholder="Enter password"
+        autocomplete="current-password"
+        required
+      >
+
+      <button id="loginButton" type="submit">Login</button>
+      <p id="message" role="status"></p>
+    </form>
+  </main>
+
+  <script type="module">
+    import { createClient } from
+      "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+    // Supabase project details
+    const SUPABASE_URL =
+      "https://jmumhmkodbwirtpfvokn.supabase.co";
+
+    // Add your Supabase publishable/anon key here.
+    // Never put your service_role or secret key in this file.
+    const SUPABASE_ANON_KEY = "PASTE_YOUR_PUBLIC_KEY_HERE";
+
+    const message = document.getElementById("message");
+    const button = document.getElementById("loginButton");
+
+    document.getElementById("loginForm").addEventListener(
+      "submit",
+      async (event) => {
+        event.preventDefault();
+
+        if (
+          !SUPABASE_ANON_KEY ||
+          SUPABASE_ANON_KEY === "PASTE_YOUR_PUBLIC_KEY_HERE"
+        ) {
+          message.style.color = "#b45309";
+          message.textContent =
+            "Setup incomplete: Supabase public key add karni hai.";
+          return;
+        }
+
+        button.disabled = true;
+        message.style.color = "#475569";
+        message.textContent = "Signing in...";
+
+        try {
+          const supabase = createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY
+          );
+
+          const { data, error } =
+            await supabase.auth.signInWithPassword({
+              email: document.getElementById("email").value.trim(),
+              password: document.getElementById("password").value
+            });
+
+          if (error) throw error;
+
+          // Verify the logged-in user is listed as an admin.
+          const { data: admin, error: adminError } = await supabase
+            .from("admins")
+            .select("user_id")
+            .eq("user_id", data.user.id)
+            .maybeSingle();
+
+          if (adminError || !admin) {
+            await supabase.auth.signOut();
+            throw new Error("This account is not authorized as an admin.");
+          }
+
+          message.style.color = "#15803d";
+          message.textContent =
+            "Login successful! Dashboard setup is the next step.";
+
+        } catch (error) {
+          message.style.color = "#dc2626";
+          message.textContent =
+            error.message || "Login failed. Please try again.";
+        } finally {
+          button.disabled = false;
+        }
+      }
+    );
+  </script>
+</body>
+  </html>
