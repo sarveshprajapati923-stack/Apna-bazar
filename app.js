@@ -193,7 +193,7 @@ $('#orderForm').onsubmit = async e => {
   const form = new FormData(e.target);
 
   const customerName = form.get('name') || '';
-  const mobile = form.get('mobile') || '';
+  const mobile = form.get('phone') || '';
   const address = form.get('address') || '';
   const payment = form.get('payment') || 'Cash on Delivery';
 
