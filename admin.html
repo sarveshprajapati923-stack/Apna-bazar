@@ -181,9 +181,8 @@
           }
 
           message.style.color = "#15803d";
-          message.textContent =
-            "Login successful! Dashboard setup is the next step.";
-
+          message.textContent = "Login successful! Opening dashboard...";
+          window.location.href = "/dashboard.html";
         } catch (error) {
           message.style.color = "#dc2626";
           message.textContent =
