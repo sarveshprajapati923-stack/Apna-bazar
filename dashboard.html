@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="hi">
+<!DOCTYPE html><html lang="hi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,7 +26,7 @@ button:disabled{opacity:.55;cursor:wait}
 .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
 input,select,textarea{width:100%;min-height:42px;border:1px solid #cbd5e1;border-radius:8px;padding:10px;background:white}
 .toolbar input{flex:1;min-width:170px}
-#message{margin:12px 0;font-size:14px;line-height:1.5}
+#message{margin:12px 0;font-size:14px;line-height:1.5;overflow-wrap:anywhere}
 .hidden{display:none!important}
 #orders,#products{display:grid;gap:12px}
 .order-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:12px}
@@ -52,7 +51,8 @@ input,select,textarea{width:100%;min-height:42px;border:1px solid #cbd5e1;border
 .product-info{flex:1;min-width:160px}
 .product-info h3{margin:0 0 7px;font-size:17px}
 .product-info p{margin:5px 0;font-size:14px;overflow-wrap:anywhere}
-.empty{padding:25px;text-align:center;color:var(--muted);background:white;border-radius:12px}
+.image-preview{display:none;width:120px;height:120px;object-fit:cover;border-radius:10px;margin-top:10px;border:1px solid var(--border)}
+.help{font-size:12px;color:var(--muted);line-height:1.5;margin-top:6px}
 @media(max-width:600px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.details,.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.product img{width:75px;height:75px}}
 </style>
 </head>
@@ -65,17 +65,13 @@ input,select,textarea{width:100%;min-height:42px;border:1px solid #cbd5e1;border
    <button class="btn-light" id="logoutBtn">Logout</button>
   </div>
  </div>
-</header>
-
-<main>
+</header><main>
  <div id="message" role="status">Checking admin login…</div>
  <section id="panel" class="hidden">
   <div class="tabs">
    <button class="tab active" data-tab="ordersSection">📦 Orders</button>
    <button class="tab" data-tab="productsSection">🛍️ Products</button>
-  </div>
-
-  <section id="ordersSection">
+  </div>  <section id="ordersSection">
    <div class="stats">
     <div class="stat"><span>Total Orders</span><strong id="totalCount">0</strong></div>
     <div class="stat"><span>Pending</span><strong id="pendingCount">0</strong></div>
@@ -90,9 +86,7 @@ input,select,textarea{width:100%;min-height:42px;border:1px solid #cbd5e1;border
     </select>
    </div>
    <div id="orders"></div>
-  </section>
-
-  <section id="productsSection" class="hidden">
+  </section>  <section id="productsSection" class="hidden">
    <div class="card" style="margin-bottom:15px">
     <h2 id="formTitle" style="margin-top:0">➕ Add New Product</h2>
     <form id="productForm">
@@ -101,19 +95,26 @@ input,select,textarea{width:100%;min-height:42px;border:1px solid #cbd5e1;border
       <div class="field"><label for="pName">Product name *</label><input id="pName" required maxlength="150" placeholder="e.g. Fresh Aata 5kg"></div>
       <div class="field"><label for="pPrice">Price (₹) *</label><input id="pPrice" type="number" required min="0" step="0.01" placeholder="100"></div>
       <div class="field"><label for="pCategory">Category</label><input id="pCategory" maxlength="100" placeholder="Grocery"></div>
-      <div class="field"><label for="pStock">Stock quantity *</label><input id="pStock" type="number" required min="0" step="1" value="0"></div>
-      <div class="field full"><label for="pImage">Product image URL</label><input id="pImage" type="url" placeholder="https://example.com/product.jpg"></div>
-      <div class="field full"><label for="pDescription">Description</label><textarea id="pDescription" rows="3" maxlength="2000" placeholder="Product details"></textarea></div>
-      <div class="field full"><label><input id="pActive" type="checkbox" checked style="width:auto;min-height:auto"> Show this product to customers</label></div>
-     </div>
-     <div class="form-actions">
-      <button class="btn-green" id="saveProductBtn" type="submit">Save Product</button>
-      <button class="btn-light" id="cancelEditBtn" type="button">Clear Form</button>
-     </div>
-    </form>
-   </div>
+      <div class="field"><label for="pStock">Stock quantity *</label><input id="pStock" type="number" required min="0" step="1" value="0"></div>  <div class="field full">
+   <label for="pImageFile">📸 Product Photo — Mobile Gallery</label>
+   <input id="pImageFile" type="file" accept="image/*">
+   <p class="help">मोबाइल की Gallery से फोटो चुनें। अधिकतम 5 MB। फोटो अपलोड करने के लिए इंटरनेट जरूरी है।</p>
+   <img id="imagePreview" class="image-preview" alt="Product photo preview">
+   <label for="pImage" style="margin-top:12px">या Product Image URL डालें</label>
+   <input id="pImage" type="url" placeholder="https://example.com/product.jpg">
+   <p class="help">नई फोटो चुनने पर वह URL की जगह इस्तेमाल होगी। बिना नई फोटो चुने Update करने पर पुरानी फोटो बनी रहेगी।</p>
+  </div>
 
-   <div class="toolbar">
+  <div class="field full"><label for="pDescription">Description</label><textarea id="pDescription" rows="3" maxlength="2000" placeholder="Product details"></textarea></div>
+  <div class="field full"><label><input id="pActive" type="checkbox" checked style="width:auto;min-height:auto"> Show this product to customers</label></div>
+ </div>
+ <div class="form-actions">
+  <button class="btn-green" id="saveProductBtn" type="submit">Save Product</button>
+  <button class="btn-light" id="cancelEditBtn" type="button">Clear Form</button>
+ </div>
+</form>
+
+   </div>   <div class="toolbar">
     <input id="productSearch" type="search" placeholder="Search products…">
     <select id="productFilter">
      <option value="all">All products</option>
@@ -124,9 +125,7 @@ input,select,textarea{width:100%;min-height:42px;border:1px solid #cbd5e1;border
    <div id="products"></div>
   </section>
  </section>
-</main>
-
-<script type="module">
+</main><script type="module">
 import {createClient} from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
 const SUPABASE_URL="https://jmumhmkodbwirtpfvokn.supabase.co";
@@ -134,6 +133,7 @@ const SUPABASE_ANON_KEY="sb_publishable_YSwxb3pUBiQEOn66wtvmsg_W_A1yT2e";
 const supabase=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 const $=s=>document.querySelector(s);
 let allOrders=[],allProducts=[],isAdmin=false;
+let previewUrl=null;
 
 function setMessage(text,error=false){
  $("#message").textContent=text;
@@ -143,6 +143,31 @@ function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&l
 function safe(v){return v==null||v===""?"—":String(v);}
 function dateText(v){const d=new Date(v);return v&&!Number.isNaN(d.getTime())?d.toLocaleString("en-IN"):"Date unavailable";}
 function money(v){return "₹"+Number(v||0).toFixed(2);}
+
+function showPreview(src){
+ const img=$("#imagePreview");
+ if(previewUrl){URL.revokeObjectURL(previewUrl);previewUrl=null;}
+ if(src){img.src=src;img.style.display="block";}
+ else{img.removeAttribute("src");img.style.display="none";}
+}
+
+$("#pImageFile").addEventListener("change",()=>{
+ const file=$("#pImageFile").files[0];
+ if(!file){showPreview($("#pImage").value.trim());return;}
+ if(!file.type.startsWith("image/")||file.size>5*1024*1024){
+  $("#pImageFile").value="";
+  showPreview($("#pImage").value.trim());
+  setMessage("कृपया 5 MB से छोटी image file चुनें।",true);
+  return;
+ }
+ previewUrl=URL.createObjectURL(file);
+ $("#imagePreview").src=previewUrl;
+ $("#imagePreview").style.display="block";
+ setMessage("Photo selected. Save Product दबाकर अपलोड करें।");
+});
+$("#pImage").addEventListener("input",()=>{
+ if(!$("#pImageFile").files.length)showPreview($("#pImage").value.trim());
+});
 
 async function verifyAdmin(){
  const {data:{session},error:sessionError}=await supabase.auth.getSession();
@@ -218,30 +243,40 @@ async function updateStatus(id){
 }
 
 function resetProductForm(){
- $("#productForm").reset();$("#productId").value="";
- $("#pStock").value="0";$("#pActive").checked=true;
+ $("#productForm").reset();
+ $("#productId").value="";
+ $("#pStock").value="0";
+ $("#pActive").checked=true;
  $("#formTitle").textContent="➕ Add New Product";
  $("#saveProductBtn").textContent="Save Product";
+ showPreview("");
 }
+
 function editProduct(p){
- $("#productId").value=p.id;$("#pName").value=p.name||"";
- $("#pPrice").value=p.price;$("#pCategory").value=p.category||"";
- $("#pStock").value=p.stock;$("#pImage").value=p.image_url||"";
- $("#pDescription").value=p.description||"";$("#pActive").checked=!!p.is_active;
+ $("#productId").value=p.id;
+ $("#pName").value=p.name||"";
+ $("#pPrice").value=p.price;
+ $("#pCategory").value=p.category||"";
+ $("#pStock").value=p.stock;
+ $("#pImage").value=p.image_url||"";
+ $("#pImageFile").value="";
+ $("#pDescription").value=p.description||"";
+ $("#pActive").checked=!!p.is_active;
  $("#formTitle").textContent="✏️ Edit Product";
  $("#saveProductBtn").textContent="Update Product";
+ showPreview(p.image_url||"");
  $("#productsSection").scrollIntoView({behavior:"smooth"});
 }
 
 async function loadProducts(){
  setMessage("Loading products…");
  try{
-  // Admin RLS policy permits admins to see active and hidden products.
   const {data,error}=await supabase.from("products")
    .select("id,name,description,price,category,image_url,stock,is_active,created_at,updated_at")
    .order("created_at",{ascending:false});
   if(error)throw error;
-  allProducts=data||[];renderProducts();
+  allProducts=data||[];
+  renderProducts();
   setMessage(`${allProducts.length} product(s) loaded.`);
  }catch(e){setMessage("Products load nahi hue: "+e.message+" — Supabase products table aur admin policies check karein.",true);}
 }
@@ -271,35 +306,97 @@ function renderProducts(){
 $("#productForm").addEventListener("submit",async e=>{
  e.preventDefault();
  if(!isAdmin)return setMessage("Admin login required.",true);
+
  const id=$("#productId").value;
- const name=$("#pName").value.trim(),price=Number($("#pPrice").value),stock=Number($("#pStock").value);
- if(!name||!Number.isFinite(price)||price<0||!Number.isInteger(stock)||stock<0){return setMessage("Name, valid price aur stock bharna zaroori hai.",true);}
- const payload={name,price,stock,category:$("#pCategory").value.trim()||"General",image_url:$("#pImage").value.trim(),description:$("#pDescription").value.trim(),is_active:$("#pActive").checked,updated_at:new Date().toISOString()};
- const btn=$("#saveProductBtn");btn.disabled=true;
+ const name=$("#pName").value.trim();
+ const price=Number($("#pPrice").value);
+ const stock=Number($("#pStock").value);
+ const btn=$("#saveProductBtn");
+
+ if(!name||!Number.isFinite(price)||price<0||!Number.isInteger(stock)||stock<0){
+  return setMessage("Name, valid price aur stock bharna zaroori hai.",true);
+ }
+
+ btn.disabled=true;
+
  try{
-  const result=id?await supabase.from("products").update(payload).eq("id",id):await supabase.from("products").insert(payload);
+  let imageUrl=$("#pImage").value.trim();
+  const file=$("#pImageFile").files[0];
+
+  if(file){
+   if(!file.type.startsWith("image/")||file.size>5*1024*1024){
+    throw new Error("कृपया 5 MB से छोटी image file चुनें।");
+   }
+
+   setMessage("Product photo upload ho rahi hai…");
+
+   const safeName=file.name.replace(/[^a-zA-Z0-9.-]/g,"_");
+   const filePath=`${crypto.randomUUID()}-${safeName}`;
+
+   const {data:uploadData,error:uploadError}=await supabase.storage
+    .from("product-images")
+    .upload(filePath,file,{contentType:file.type,upsert:false});
+
+   if(uploadError)throw new Error("Photo upload failed: "+uploadError.message);
+
+   imageUrl=supabase.storage.from("product-images").getPublicUrl(uploadData.path).data.publicUrl;
+  }
+
+  const existing=id?allProducts.find(p=>String(p.id)===String(id)):null;
+
+  // Edit करते समय नई फोटो नहीं चुनी और URL खाली छोड़ा, तो पुरानी फोटो बनी रहेगी।
+  if(id&&!file&&!imageUrl&&existing){
+   imageUrl=existing.image_url||"";
+  }
+
+  const payload={
+   name,
+   price,
+   stock,
+   category:$("#pCategory").value.trim()||"General",
+   image_url:imageUrl,
+   description:$("#pDescription").value.trim(),
+   is_active:$("#pActive").checked,
+   updated_at:new Date().toISOString()
+  };
+
+  const result=id
+   ?await supabase.from("products").update(payload).eq("id",id)
+   :await supabase.from("products").insert(payload);
+
   if(result.error)throw result.error;
+
   setMessage(id?"Product updated successfully.":"Product added successfully.");
-  resetProductForm();await loadProducts();
- }catch(e){setMessage("Product save nahi hua: "+e.message,true);}
- finally{btn.disabled=false;}
+  resetProductForm();
+  await loadProducts();
+
+ }catch(e){
+  setMessage("Product save nahi hua: "+(e.message||"Unknown error"),true);
+ }finally{
+  btn.disabled=false;
+ }
 });
 
 async function toggleProduct(id){
- const p=allProducts.find(x=>String(x.id)===String(id));if(!p)return;
+ const p=allProducts.find(x=>String(x.id)===String(id));
+ if(!p)return;
  try{
   const {error}=await supabase.from("products").update({is_active:!p.is_active,updated_at:new Date().toISOString()}).eq("id",id);
   if(error)throw error;
-  setMessage("Product visibility updated.");await loadProducts();
+  setMessage("Product visibility updated.");
+  await loadProducts();
  }catch(e){setMessage("Visibility update failed: "+e.message,true);}
 }
+
 async function deleteProduct(id){
- const p=allProducts.find(x=>String(x.id)===String(id));if(!p)return;
+ const p=allProducts.find(x=>String(x.id)===String(id));
+ if(!p)return;
  if(!confirm(`"${p.name}" ko permanently delete karna hai?`))return;
  try{
   const {error}=await supabase.from("products").delete().eq("id",id);
   if(error)throw error;
-  setMessage("Product deleted.");await loadProducts();
+  setMessage("Product deleted.");
+  await loadProducts();
  }catch(e){setMessage("Delete failed: "+e.message,true);}
 }
 
@@ -309,21 +406,28 @@ document.querySelectorAll("[data-tab]").forEach(btn=>btn.addEventListener("click
  $("#productsSection").classList.toggle("hidden",btn.dataset.tab!=="productsSection");
  if(btn.dataset.tab==="productsSection")loadProducts();
 }));
+
 $("#cancelEditBtn").addEventListener("click",resetProductForm);
 $("#searchInput").addEventListener("input",renderOrders);
 $("#statusFilter").addEventListener("change",renderOrders);
 $("#productSearch").addEventListener("input",renderProducts);
 $("#productFilter").addEventListener("change",renderProducts);
+
 $("#refreshBtn").addEventListener("click",async()=>{
  if($("#productsSection").classList.contains("hidden"))await loadOrders();
  else await loadProducts();
 });
-$("#logoutBtn").addEventListener("click",async()=>{await supabase.auth.signOut();location.replace("/admin.html");});
+
+$("#logoutBtn").addEventListener("click",async()=>{
+ await supabase.auth.signOut();
+ location.replace("/admin.html");
+});
 
 if(await verifyAdmin()){
  $("#panel").classList.remove("hidden");
  await loadOrders();
-}else setMessage("Please log in as an authorized admin.",true);
-</script>
-</body>
-  </html>
+}else{
+ setMessage("Please log in as an authorized admin.",true);
+}
+</script></body>
+ </html>
