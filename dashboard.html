@@ -168,7 +168,9 @@
             <div class="order-head">
               <div><div class="order-id">Order ${escapeHTML(safeText(order.order_number))}</div>
               <div class="date">${escapeHTML(formatDate(order.created_at))}</div></div>
-              <span class="badge">${escapeHTML(safeText(order.status))}</span>
+              <span class="badge badge-${String(order.status || "pending").toLowerCase()}">
+  ${escapeHTML(safeText(order.status))}
+</span>
             </div>
             <div class="details">
               <div><div class="label">Customer</div><div class="value">${escapeHTML(safeText(order.customer_name))}</div></div>
