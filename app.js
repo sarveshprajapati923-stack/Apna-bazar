@@ -83,7 +83,7 @@ async function load() {
     console.error('Product loading error:', error);
     products = [];
     render();
-    alert('Products load nahi hue. Internet aur Supabase settings check karein.');
+    alert('Supabase Error: ' + error.message);
   }
 }
 
