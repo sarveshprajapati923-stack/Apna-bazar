@@ -396,6 +396,50 @@
 
 
 <script src="app.js"></script>
+  
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const menuButton = document.getElementById("menuToggle");
+  const siteMenu = document.getElementById("siteMenu");
+  const searchInput = document.getElementById("search");
 
+  if (!menuButton || !siteMenu) return;
+
+  menuButton.addEventListener("click", function () {
+    const isOpen = siteMenu.classList.toggle("menu-open");
+    menuButton.setAttribute("aria-expanded", String(isOpen));
+    menuButton.setAttribute(
+      "aria-label",
+      isOpen ? "Close menu" : "Open menu"
+    );
+    menuButton.textContent = isOpen ? "✕" : "☰";
+  });
+
+  siteMenu.querySelectorAll("a").forEach(function (link) {
+    link.addEventListener("click", function () {
+      siteMenu.classList.remove("menu-open");
+      menuButton.textContent = "☰";
+      menuButton.setAttribute("aria-expanded", "false");
+
+      if (link.textContent.includes("Search Products") && searchInput) {
+        setTimeout(function () {
+          searchInput.focus();
+        }, 200);
+      }
+    });
+  });
+
+  document.addEventListener("click", function (event) {
+    if (
+      !siteMenu.contains(event.target) &&
+      !menuButton.contains(event.target)
+    ) {
+      siteMenu.classList.remove("menu-open");
+      menuButton.textContent = "☰";
+      menuButton.setAttribute("aria-expanded", "false");
+    }
+  });
+});
+        </script>
 </body>
         </html>
