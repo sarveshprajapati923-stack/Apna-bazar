@@ -700,3 +700,52 @@ footer{
     padding: 10px;
   }
     }
+
+/* POLICY SECTIONS */
+.policy-section {
+  max-width: 900px;
+  margin: 25px auto;
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #eeeeee;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  scroll-margin-top: 25px;
+}
+
+.policy-section h2 {
+  font-size: 22px;
+  margin: 0 0 16px;
+  color: #be185d;
+}
+
+.policy-section p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #444444;
+}
+
+.policy-section a {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 16px;
+  background: #db2777;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+.policy-section a:hover {
+  background: #be185d;
+}
+
+@media (max-width: 600px) {
+  .policy-section {
+    margin: 18px 12px;
+    padding: 18px;
+  }
+
+  .policy-section h2 {
+    font-size: 19px;
+  }
+}
