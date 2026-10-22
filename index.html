@@ -413,6 +413,74 @@ if ("serviceWorker" in navigator) {
   });
 }
     </script>
+  <script>
+let deferredInstallPrompt;
+const installButton = document.getElementById("installAppBtn");
+
+window.addEventListener("beforeinstallprompt", function (event) {
+  event.preventDefault();
+  deferredInstallPrompt = event;
+
+  if (installButton) {
+    installButton.hidden = false;
+  }
+});
+
+if (installButton) {
+  installButton.addEventListener("click", async function () {
+    if (!deferredInstallPrompt) {
+      alert("Install karne ke liye Chrome ke menu mein Add to Home screen ya Install app dekhein.");
+      return;
+    }
+
+    deferredInstallPrompt.prompt();
+
+    await deferredInstallPrompt.userChoice;
+    deferredInstallPrompt = null;
+    installButton.hidden = true;
+  });
+}
+
+window.addEventListener("appinstalled", function () {
+  if (installButton) {
+    installButton.hidden = true;
+  }
+});
+  </script>
+  <script>
+let deferredInstallPrompt;
+const installButton = document.getElementById("installAppBtn");
+
+window.addEventListener("beforeinstallprompt", function (event) {
+  event.preventDefault();
+  deferredInstallPrompt = event;
+
+  if (installButton) {
+    installButton.hidden = false;
+  }
+});
+
+if (installButton) {
+  installButton.addEventListener("click", async function () {
+    if (!deferredInstallPrompt) {
+      alert("Install karne ke liye Chrome ke menu mein Add to Home screen ya Install app dekhein.");
+      return;
+    }
+
+    deferredInstallPrompt.prompt();
+
+    await deferredInstallPrompt.userChoice;
+    deferredInstallPrompt = null;
+    installButton.hidden = true;
+  });
+}
+
+window.addEventListener("appinstalled", function () {
+  if (installButton) {
+    installButton.hidden = true;
+  }
+});
+  </script>
   
 <script>
 document.addEventListener("DOMContentLoaded", function () {
