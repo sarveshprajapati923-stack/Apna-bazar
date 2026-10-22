@@ -1,0 +1,19 @@
+{
+  "id": "/",
+  "name": "Apna Bazaar - Fazilnagar",
+  "short_name": "Apna Bazaar",
+  "description": "Shop groceries and daily essentials in Fazilnagar.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#db2777",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ]
+}
