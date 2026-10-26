@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bambaiya Chaska Tea and Snacks | Cutting Chai, Vada Pav, Bun Maska</title>
+<meta name="description" content="Bambaiya Chaska Tea and Snacks: kadak cutting chai, garam vada pav, bun maska aur bahut kuch. WhatsApp pe order karo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --chai-dark:#2A1710;   /* gehri chai brown */
+    --chai-mid:#4A2A1B;
+    --kesar:#F5A31A;       /* marigold / kesar */
+    --kesar-halka:#FFE2A8;
+    --doodh:#FFFBF4;       /* milk white */
+    --retta:#F7EBD8;       /* sand */
+    --pudina:#1E7A57;      /* chutney green */
+    --masala:#D1381F;      /* masala red */
+    --text:#2A1710;
+    --muted:#7A6455;
+    --display:'Baloo 2','Trebuchet MS',sans-serif;
+    --body:'DM Sans','Segoe UI',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body);font-size:1.05rem;line-height:1.6;color:var(--text);background:var(--doodh)}
+  body.has-cart{padding-bottom:96px}
+  a{color:inherit}
+  button{font-family:inherit}
+  :focus-visible{outline:3px solid var(--kesar);outline-offset:3px}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 22px}
+  h1,h2,h3{font-family:var(--display);line-height:1.1}
+
+  /* Hero */
+  .hero-bg{background:var(--chai-dark);color:var(--doodh);border-radius:0 0 56px 56px}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0;flex-wrap:wrap}
+  .brand{font-family:var(--display);font-weight:800;font-size:1.4rem;text-decoration:none;display:flex;align-items:center;gap:10px}
+  .brand .logo{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--kesar);font-size:1.3rem}
+  .top nav{display:flex;align-items:center;gap:26px;font-weight:500}
+  .top nav a{text-decoration:none;opacity:.85}
+  .top nav a:hover{opacity:1;color:var(--kesar)}
+  .top nav a.nav-btn{opacity:1;background:var(--kesar);color:var(--chai-dark);padding:9px 20px;border-radius:999px;font-weight:700}
+  .top nav a.nav-btn:hover{background:var(--doodh);color:var(--chai-dark)}
+
+  .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;padding:36px 0 84px}
+  .tag{display:inline-block;background:var(--kesar);color:var(--chai-dark);font-family:var(--display);font-weight:700;font-size:1.1rem;padding:4px 18px;border-radius:999px}
+  .hero h1{margin-top:18px;font-weight:800;font-size:clamp(3rem,8vw,6rem);letter-spacing:-.01em}
+  .lead{max-width:36ch;margin-top:18px;font-size:1.2rem;color:#EBDDCB}
+  .hindi{margin-top:10px;font-family:var(--display);font-weight:700;font-size:1.3rem;color:var(--kesar-halka)}
+  .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:10px 28px;border-radius:999px;border:2px solid transparent;font:700 1.02rem var(--body);text-decoration:none;cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+  .btn.primary{background:var(--kesar);color:var(--chai-dark)}
+  .btn.primary:hover{background:var(--doodh)}
+  .btn.ghost{border-color:#8E6F5C;color:var(--doodh)}
+  .btn.ghost:hover{border-color:var(--kesar);color:var(--kesar)}
+  .btn.dark{background:var(--chai-dark);color:var(--doodh)}
+  .btn.dark:hover{background:var(--chai-mid)}
+  .btn.outline{border-color:var(--chai-dark);color:var(--chai-dark)}
+  .btn.outline:hover{background:var(--chai-dark);color:var(--doodh)}
+
+  /* Hero visual */
+  .visual{position:relative;justify-self:center;width:min(100%,420px);aspect-ratio:1}
+  .circle{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFC445,var(--kesar) 60%,#E48E0B);display:grid;place-items:center}
+  .circle svg{width:58%;height:auto;overflow:visible}
+  .steam path{fill:none;stroke:#FFF6E0;stroke-width:6;stroke-linecap:round;opacity:.9;animation:rise 3.2s ease-in-out infinite}
+  .steam path:nth-child(2){animation-delay:1s}
+  .steam path:nth-child(3){animation-delay:2s}
+  @keyframes rise{
+    0%{transform:translateY(14px);opacity:0}
+    35%{opacity:.9}
+    100%{transform:translateY(-16px);opacity:0}
+  }
+  .chip{position:absolute;display:flex;align-items:center;gap:8px;background:var(--doodh);color:var(--chai-dark);font-weight:700;font-size:.95rem;padding:8px 16px 8px 10px;border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.28)}
+  .chip i{font-style:normal;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--retta);font-size:1.1rem}
+  .chip.c1{left:-4%;top:14%}
+  .chip.c2{right:-6%;top:44%}
+  .chip.c3{left:6%;bottom:6%}
+
+  /* Features */
+  .features{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;padding:64px 0 24px}
+  .feature{display:flex;gap:16px;align-items:flex-start}
+  .feature .ico{flex:none;display:grid;place-items:center;width:56px;height:56px;border-radius:18px;background:var(--retta);font-size:1.7rem}
+  .feature h3{font-size:1.25rem;font-weight:700}
+  .feature p{color:var(--muted);font-size:.98rem}
+
+  /* Menu */
+  .menu{padding:56px 0 72px}
+  .section-head h2{font-size:clamp(2.2rem,5vw,3.2rem);font-weight:800}
+  .section-head p{margin-top:6px;color:var(--muted);max-width:50ch}
+  .tabs{display:flex;flex-wrap:wrap;gap:10px;margin:28px 0 30px}
+  .tab{min-height:44px;padding:8px 22px;border-radius:999px;border:2px solid var(--retta);background:var(--retta);color:var(--chai-dark);font-weight:700;font-size:1rem;cursor:pointer}
+  .tab:hover{border-color:var(--kesar)}
+  .tab[aria-pressed="true"]{background:var(--chai-dark);border-color:var(--chai-dark);color:var(--doodh)}
+  .items{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+  .item{display:flex;flex-direction:column;background:#fff;border:2px solid var(--retta);border-radius:24px;padding:20px}
+  .item[hidden]{display:none}
+  .item .row{display:flex;justify-content:space-between;align-items:flex-start}
+  .item .emoji{display:grid;place-items:center;width:64px;height:64px;border-radius:20px;background:var(--kesar-halka);font-size:2rem}
+  .item.chai .emoji{background:#FBE3C3}
+  .item.snack .emoji{background:#FFE2A8}
+  .item.combo .emoji{background:#CDEBDD}
+  .item .price{font-family:var(--display);font-weight:800;font-size:1.5rem;color:var(--masala)}
+  .item h3{margin-top:14px;font-size:1.3rem;font-weight:700}
+  .item p{margin-top:2px;color:var(--muted);font-size:.95rem;flex:1}
+  .add-row{margin-top:16px;min-height:46px;display:flex}
+  .add-btn{flex:1;min-height:46px;border:2px solid var(--chai-dark);background:transparent;border-radius:999px;color:var(--chai-dark);font-weight:700;font-size:1rem;cursor:pointer}
+  .add-btn:hover{background:var(--chai-dark);color:var(--doodh)}
+  .stepper{flex:1;display:none;align-items:center;justify-content:space-between;background:var(--chai-dark);border-radius:999px;padding:3px}
+  .stepper button{width:40px;height:40px;border-radius:50%;border:0;background:var(--kesar);color:var(--chai-dark);font-size:1.3rem;font-weight:800;cursor:pointer}
+  .stepper button:hover{background:var(--doodh)}
+  .stepper .q{color:var(--doodh);font-weight:700;min-width:2ch;text-align:center}
+  .item.in-cart .add-btn{display:none}
+  .item.in-cart .stepper{display:flex}
+  .item.in-cart{border-color:var(--kesar)}
+
+  /* Family banner */
+  .banner{margin:0 0 72px;background:var(--pudina);color:#fff;border-radius:36px;padding:40px 44px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .banner h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800}
+  .banner p{margin-top:6px;max-width:44ch;color:#D8F2E6}
+  .banner .big{font-family:var(--display);font-weight:800;font-size:3rem;line-height:1;color:var(--kesar-halka)}
+  .banner .side{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+
+  /* Reviews */
+  .reviews{background:var(--retta);padding:68px 0 76px}
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:32px}
+  .quote{background:var(--doodh);border-radius:24px;padding:26px}
+  .stars{color:var(--kesar);font-size:1.15rem;letter-spacing:2px}
+  .quote p{margin-top:10px}
+  .quote .who{margin-top:16px;font-weight:700}
+  .quote .who span{display:block;font-weight:400;font-size:.9rem;color:var(--muted)}
+
+  /* Find us */
+  .find{background:var(--chai-dark);color:var(--doodh);padding:68px 0 72px}
+  .find .cols{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:28px;align-items:start}
+  .find dl{display:grid;grid-template-columns:auto 1fr;gap:12px 22px}
+  .find dt{font-weight:700;color:var(--kesar)}
+  .find .cta{margin-top:0}
+  .find h2{font-size:clamp(2.2rem,5vw,3.2rem);font-weight:800}
+
+  footer{background:#1C0F0A;color:#BFA999;padding:24px 0;font-size:.95rem}
+  footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+  /* Cart bar */
+  .bar{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:20;width:min(calc(100% - 28px),720px);background:var(--chai-dark);color:var(--doodh);border-radius:999px;padding:10px 10px 10px 26px;display:flex;align-items:center;justify-content:space-between;gap:14px;box-shadow:0 12px 36px rgba(0,0,0,.35)}
+  .bar[hidden]{display:none}
+  .bar .sum{font-weight:500}
+  .bar .sum strong{font-family:var(--display);font-size:1.3rem;color:var(--kesar)}
+  .bar .btn{min-height:46px;background:var(--pudina);color:#fff;padding:8px 22px;white-space:nowrap}
+  .bar .btn:hover{background:#26946B}
+
+  @media (max-width:900px){
+    .hero{grid-template-columns:1fr;padding-bottom:64px}
+    .visual{width:min(100%,340px)}
+    .features{grid-template-columns:1fr;gap:24px;padding-top:48px}
+    .quotes{grid-template-columns:1fr}
+    .find .cols{grid-template-columns:1fr}
+    .banner{padding:30px 26px}
+  }
+  @media (max-width:560px){
+    .hero-bg{border-radius:0 0 36px 36px}
+    .top nav a:not(.nav-btn){display:none}
+    .bar{border-radius:28px;flex-direction:column;align-items:stretch;padding:14px 14px 14px 20px;gap:8px}
+    .bar .sum{text-align:center}
+    .chip.c1{left:0}
+    .chip.c2{right:0}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .steam path{animation:none;opacity:.6}
+  }
+</style>
+</head>
+<body>
+
+<div class="hero-bg">
+  <header class="wrap">
+    <div class="top">
+      <a class="brand" href="#"><span class="logo" aria-hidden="true">🍵</span>Bambaiya Chaska</a>
+      <nav aria-label="Main">
+        <a href="#menu">Menu</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#pata">Pata</a>
+        <!-- DEMO: apna real WhatsApp number yahan daalna (country code ke saath, bina + ke) -->
+        <a class="nav-btn" href="https://wa.me/919999999999" target="_blank" rel="noopener">Order karo</a>
+      </nav>
+    </div>
+
+    <div class="hero">
+      <div>
+        <span class="tag">Tea &amp; Snacks</span>
+        <h1>Bambaiya<br>Chaska</h1>
+        <p class="lead">Kadak cutting chai, garam vada pav aur maska wala bun. Seedha Mumbai ke nukkad se aapke paas.</p>
+        <p class="hindi">चाय का चस्का, बंबई वाला</p>
+        <div class="cta">
+          <a class="btn primary" href="#menu">Menu dekho</a>
+          <a class="btn ghost" href="#pata">Hume dhundo</a>
+        </div>
+      </div>
+
+      <div class="visual" aria-hidden="true">
+        <div class="circle">
+          <svg viewBox="0 0 200 270">
+            <defs>
+              <clipPath id="glassClip">
+                <path d="M44 96 L156 96 L142 232 Q141 244 129 244 L71 244 Q59 244 58 232 Z"/>
+              </clipPath>
+            </defs>
+            <g class="steam">
+              <path d="M78 78 C66 62, 90 52, 78 34"/>
+              <path d="M102 82 C90 64, 114 52, 102 30"/>
+              <path d="M126 78 C114 62, 138 52, 126 36"/>
+            </g>
+            <g clip-path="url(#glassClip)">
+              <rect x="30" y="96" width="140" height="160" fill="#FFF6E0" opacity=".7"/>
+              <rect x="30" y="124" width="140" height="140" fill="#9C4F17"/>
+              <rect x="30" y="124" width="140" height="16" fill="#D9934A"/>
+            </g>
+            <path d="M44 96 L156 96 L142 232 Q141 244 129 244 L71 244 Q59 244 58 232 Z" fill="none" stroke="#2A1710" stroke-width="6" stroke-linejoin="round"/>
+            <ellipse cx="100" cy="254" rx="62" ry="9" fill="#2A1710"/>
+          </svg>
+        </div>
+        <div class="chip c1"><i>🍵</i>Cutting Chai ₹15</div>
+        <div class="chip c2"><i>🍔</i>Vada Pav ₹20</div>
+        <div class="chip c3"><i>🍞</i>Bun Maska ₹30</div>
+      </div>
+    </div>
+  </header>
+</div>
+
+<main>
+  <section class="wrap features" aria-label="Khaas baatein">
+    <div class="feature">
+      <div class="ico" aria-hidden="true">🔥</div>
+      <div>
+        <h3>Chai har baar taazi</h3>
+        <p>Doodh, adrak aur elaichi ke saath, order aate hi banti hai.</p>
+      </div>
+    </div>
+    <div class="feature">
+      <div class="ico" aria-hidden="true">🧈</div>
+      <div>
+        <h3>Pav pe asli maska</h3>
+        <p>Pav roz subah local bakery se aata hai, maska seedha tawe pe.</p>
+      </div>
+    </div>
+    <div class="feature">
+      <div class="ico" aria-hidden="true">💸</div>
+      <div>
+        <h3>Pocket ko pasand</h3>
+        <p>Chai ₹15 se shuru aur combo ₹35 se. Dost ke saath bhi, akele bhi.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="menu" id="menu">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Aaj ka menu</h2>
+        <p>Jo pasand aaye usse add karo. Neeche se poora order ek click mein WhatsApp pe bhej do.</p>
+      </div>
+
+      <div class="tabs" role="group" aria-label="Menu filter">
+        <button class="tab" type="button" data-filter="all" aria-pressed="true">Sab kuch</button>
+        <button class="tab" type="button" data-filter="chai" aria-pressed="false">Chai</button>
+        <button class="tab" type="button" data-filter="snack" aria-pressed="false">Snacks</button>
+        <button class="tab" type="button" data-filter="combo" aria-pressed="false">Combos</button>
+      </div>
+
+      <div class="items" id="items"></div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="banner" aria-label="Family pack">
+      <div>
+        <h2>Poori mandli ke liye Family Pack</h2>
+        <p>4 cutting chai aur 4 vada pav ek saath. Office, ghar ya dost, sabke liye kaafi.</p>
+      </div>
+      <div class="side">
+        <span class="big">₹130</span>
+        <button class="btn primary" type="button" id="family-add">Family Pack add karo</button>
+      </div>
+    </section>
+  </div>
+
+  <section class="reviews" id="reviews">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Log kya kehte hain</h2>
+      </div>
+      <!-- DEMO: ye sample reviews hain, real reviews milne par badal dena -->
+      <div class="quotes">
+        <figure class="quote">
+          <div class="stars" aria-label="5 star">★★★★★</div>
+          <p>Office ke baad roz yahin chai peene aata hoon. Cutting chai ekdum Mumbai jaisi hai.</p>
+          <figcaption class="who">Rohit S.<span>Regular customer</span></figcaption>
+        </figure>
+        <figure class="quote">
+          <div class="stars" aria-label="5 star">★★★★★</div>
+          <p>Bun maska aur chai ka combo best hai. Maska dil khol ke lagate hain.</p>
+          <figcaption class="who">Pooja M.<span>College student</span></figcaption>
+        </figure>
+        <figure class="quote">
+          <div class="stars" aria-label="5 star">★★★★★</div>
+          <p>Family pack mangaya tha, sabko pasand aaya. WhatsApp pe order karna bahut aasaan hai.</p>
+          <figcaption class="who">Imran K.<span>Order on WhatsApp</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="find" id="pata">
+    <div class="wrap">
+      <h2>Aaiye, chai pijiye</h2>
+      <div class="cols">
+        <!-- DEMO: neeche ka address, timing aur phone number real details se badal dena -->
+        <dl>
+          <dt>Pata</dt><dd>Shop No. 4, Station Road, Mumbai 400001</dd>
+          <dt>Timing</dt><dd>Roz subah 6 baje se raat 11 baje tak</dd>
+          <dt>Phone</dt><dd><a href="tel:+919999999999">+91 99999 99999</a></dd>
+        </dl>
+        <div class="cta">
+          <a class="btn primary" href="tel:+919999999999">Call karo</a>
+          <a class="btn ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Bambaiya+Chaska+Tea+and+Snacks" target="_blank" rel="noopener">Google Maps pe dekho</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 Bambaiya Chaska Tea and Snacks</span>
+    <span>Chai pe charcha, roz.</span>
+  </div>
+</footer>
+
+<div class="bar" id="bar" hidden>
+  <span class="sum"><span id="bar-count">0 items</span> &nbsp;|&nbsp; Total <strong>₹<span id="bar-total">0</span></strong></span>
+  <a class="btn" id="wa-order" href="#" target="_blank" rel="noopener">WhatsApp pe order bhejo</a>
+</div>
+
+<script>
+  // DEMO: real WhatsApp number (country code ke saath, bina + ke)
+  const PHONE = "919999999999";
+
+  const MENU = [
+    { id:"cutting",  cat:"chai",  emoji:"🍵", name:"Cutting Chai",       desc:"Half glass ki kadak Mumbai wali chai.", price:15 },
+    { id:"masala",   cat:"chai",  emoji:"☕", name:"Masala Chai",        desc:"Khushboodar masale ke saath garam chai.", price:20 },
+    { id:"adrak",    cat:"chai",  emoji:"☕", name:"Adrak Elaichi Chai", desc:"Taazi adrak aur elaichi, sardi ka ilaaj.", price:20 },
+    { id:"irani",    cat:"chai",  emoji:"🫖", name:"Irani Chai",         desc:"Gaadhi, malaidaar aur halki meethi.", price:25 },
+    { id:"kulhad",   cat:"chai",  emoji:"🍵", name:"Kulhad Chai",        desc:"Mitti ke kulhad mein, soundhi khushboo ke saath.", price:30 },
+    { id:"vada",     cat:"snack", emoji:"🍔", name:"Vada Pav",           desc:"Garam batata vada, lehsun chutney, soft pav.", price:20 },
+    { id:"samosa",   cat:"snack", emoji:"🥟", name:"Samosa Pav",         desc:"Crispy samosa, pav aur teekhi hari chutney.", price:25 },
+    { id:"bun",      cat:"snack", emoji:"🍞", name:"Bun Maska",          desc:"Narm bun pe dher saara maska.", price:30 },
+    { id:"pakoda",   cat:"snack", emoji:"🥪", name:"Bread Pakoda",       desc:"Besan mein talaa hua garam bread pakoda.", price:30 },
+    { id:"bhaji",    cat:"snack", emoji:"🧅", name:"Kanda Bhaji",        desc:"Crispy pyaaz ke pakode, baarish wali yaad.", price:40 },
+    { id:"misal",    cat:"snack", emoji:"🍛", name:"Misal Pav",          desc:"Teekhi kat wali misal, farsan aur pav.", price:70 },
+    { id:"c-vada",   cat:"combo", emoji:"🎉", name:"Chai + Vada Pav",    desc:"Cutting chai ke saath ek garam vada pav.", price:35 },
+    { id:"c-samosa", cat:"combo", emoji:"🎉", name:"Chai + Samosa Pav",  desc:"Cutting chai ke saath samosa pav.", price:40 },
+    { id:"c-bun",    cat:"combo", emoji:"🎉", name:"Chai + Bun Maska",   desc:"Cutting chai ke saath bun maska.", price:45 },
+    { id:"family",   cat:"combo", emoji:"👨‍👩‍👧‍👦", name:"Family Pack", desc:"4 cutting chai aur 4 vada pav.", price:130 }
+  ];
+
+  const qty = {};
+  const refs = {};
+  const byId = {};
+
+  const grid = document.getElementById("items");
+
+  MENU.forEach(m => {
+    qty[m.id] = 0;
+    byId[m.id] = m;
+
+    const el = document.createElement("article");
+    el.className = "item " + m.cat;
+    el.dataset.cat = m.cat;
+    el.innerHTML =
+      `<div class="row"><span class="emoji" aria-hidden="true">${m.emoji}</span><span class="price">₹${m.price}</span></div>` +
+      `<h3>${m.name}</h3>` +
+      `<p>${m.desc}</p>` +
+      `<div class="add-row">` +
+        `<button class="add-btn" type="button">Add karo</button>` +
+        `<div class="stepper">` +
+          `<button class="minus" type="button" aria-label="${m.name} kam karo">−</button>` +
+          `<span class="q" aria-live="polite">0</span>` +
+          `<button class="plus" type="button" aria-label="${m.name} aur add karo">+</button>` +
+        `</div>` +
+      `</div>`;
+
+    refs[m.id] = { el, q: el.querySelector(".q") };
+    el.querySelector(".add-btn").addEventListener("click", () => change(m.id, 1));
+    el.querySelector(".plus").addEventListener("click", () => change(m.id, 1));
+    el.querySelector(".minus").addEventListener("click", () => change(m.id, -1));
+    grid.appendChild(el);
+  });
+
+  function change(id, delta) {
+    qty[id] = Math.max(0, qty[id] + delta);
+    refs[id].q.textContent = qty[id];
+    refs[id].el.classList.toggle("in-cart", qty[id] > 0);
+    updateBar();
+  }
+
+  function updateBar() {
+    let count = 0, total = 0, lines = [];
+    MENU.forEach(m => {
+      const n = qty[m.id];
+      if (n > 0) {
+        count += n;
+        total += n * m.price;
+        lines.push(n + " x " + m.name + " = ₹" + (n * m.price));
+      }
+    });
+
+    document.getElementById("bar").hidden = count === 0;
+    document.body.classList.toggle("has-cart", count > 0);
+    document.getElementById("bar-count").textContent = count + (count === 1 ? " item" : " items");
+    document.getElementById("bar-total").textContent = total;
+
+    const msg = "Namaste Bambaiya Chaska! Mujhe ye order dena hai:\n" + lines.join("\n") + "\nTotal: ₹" + total;
+    document.getElementById("wa-order").href = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(msg);
+  }
+
+  // Menu filter tabs
+  document.querySelectorAll(".tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-pressed", String(t === tab)));
+      const f = tab.dataset.filter;
+      MENU.forEach(m => { refs[m.id].el.hidden = !(f === "all" || m.cat === f); });
+    });
+  });
+
+  // Family pack banner button
+  document.getElementById("family-add").addEventListener("click", () => change("family", 1));
+</script>
+</body>
+</html>
